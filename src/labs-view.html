@@ -1,0 +1,123 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="labs-view">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    </style>
+
+    <div id="area-collapse" class="card">
+      <template is="dom-repeat" items="[[labs]]">
+        <paper-card image="[[item.image]]" alt="Sailboat Harbor" class="white">
+          <div class="card-content">[[item.title]]</div>
+          <div class="card-actions">
+            <!--<paper-button>Compartir</paper-button>-->
+            <paper-button on-click="_handleLab" lab-uid$="[[item.uid]]">Iniciar</paper-button>
+            <paper-icon-button icon="expand-more" title="more info" on-click="_toggle" style="float:right;">
+            </paper-icon-button>
+            <iron-collapse id="collapse_[[index]]" style="width:100%;">
+              [[item.description]]
+            </iron-collapse>
+          </div>
+        </paper-card>
+      </template>
+
+    </div>
+  </template>
+
+  <script>
+    class LabsView extends Polymer.Element {
+      static get is() { return 'labs-view'; }
+
+      static get properties() {
+          return {
+              labs: {
+                  type: Object,
+                  value: []
+              },
+              isLogin: {
+                type: Boolean
+              }
+          };
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        const lavsRef = firebase.database().ref('labs/');
+        lavsRef.on('value', (snapshot) =>{
+          const values = snapshot.val();
+          if(values){
+              const newLabs = [];
+              for(const item in values){
+                  newLabs.push(Object.assign({}, {uid:item}, values[item]));
+              }
+              this.labs = newLabs;
+              console.log(this.labs);
+          }
+        });
+      }
+
+      _toggle(event){
+          const index = event.model.index;
+          const node = this.$['area-collapse'].querySelector('#collapse_' + index);
+          node.toggle();
+          event.target.setAttribute('aria-expanded',node.opened);
+      }
+
+      _launchSelectedLab(lab, user){
+          this.dispatchEvent(new CustomEvent('selected-lab', {
+              bubbles: true,
+              composed: true,
+              detail: {
+                  lab, user
+              }
+          }));
+      }
+
+      _handleLab(event){
+          const lab = event.target.getAttribute('lab-uid');
+          console.log(lab);
+          if(this.isLogin){
+              this._launchSelectedLab(lab);
+          }else{
+              const provider = new firebase.auth.GoogleAuthProvider();
+              firebase.auth().signInWithPopup(provider).then((result)  =>{
+                  this._launchSelectedLab(lab, result.user);
+              }).catch((error)  => {
+                  // Handle Errors here.
+                  this.dispatchEvent(new CustomEvent('toast-event', {
+                      bubbles: true,
+                      composed: true,
+                      detail: {
+                          type: 'alert',
+                          message: 'Para ver el contenido es necesario iniciar sesión con tu cuenta Google'
+                      }
+                  }));
+              });
+          }
+      }
+
+    }
+
+    window.customElements.define(LabsView.is, LabsView);
+  </script>
+</dom-module>
