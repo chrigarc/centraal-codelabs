@@ -69,9 +69,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 font-weight: bold;
             }
 
-            .green{
-                color: green;
-            }
 
         </style>
 
@@ -87,7 +84,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 tail="{{subroute}}">
         </app-route>
 
-        <app-drawer-layout id="centraal-layout" fullbleed  narrow="{{narrow}}" on-selected-lab="_handleSelectTab" on-required-login="_initSession">
+        <app-drawer-layout id="centraal-layout" fullbleed  narrow="{{narrow}}" on-selected-lab="_handleSelectTab" on-required-login="_initSession" on-step-change="_handleStepChange">
 
             <template is="dom-if" if="[[isLogin]]">
                 <!-- Drawer content -->
@@ -104,10 +101,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                     <div class="drawer-list">
                         <template is="dom-repeat"  items="[[lab.content]]" class="drawer-list" >
-                            <template is="dom-if">
-
-                            </template>
-                            <a href="lab" on-click="_step" lab-step$="[[item.step]]"><paper-icon-button icon="my-icons:done"></paper-icon-button>[[item.title]]</a>
+                            <a href="lab" class="link_lab" on-click="_step" lab-step$="[[item.step]]"><paper-icon-button icon="my-icons:done"></paper-icon-button>[[item.title]]</a>
                         </template>
                     </div>
                 </app-drawer>
@@ -227,6 +221,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 let myFile = 'my-view404';
                 switch (page) {
                     case 'labs':
+                        this.set('lab', null);
                         myFile = 'labs-view';
                         break;
                     case 'lab':
@@ -286,7 +281,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
 
             _handleSelectTab(event) {
-                console.log(event.detail.uidLab);
                 const lab = this._findLab(event.detail.uidLab);
                 const lavsRef = firebase.database().ref('labs-content/' + event.detail.uidLab);
                 lavsRef.once('value', (snapshot) =>{
@@ -327,7 +321,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             _step(event){
                 const step = event.target.getAttribute('lab-step');
                 this.$['lab-view'].step = step;
-
                 firebase.database().ref('user-labs/'+ this.user.uid + '/' + this.lab.uid).set(step);
             }
 
@@ -342,7 +335,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
 
             _closeSession(){
-                console.log('cerrando sesiónn');
                 firebase.auth().signOut().then(() => {
                     this.set('user', null);
                     this.set('lab', null);
@@ -366,10 +358,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 });
             }
 
+            _handleStepChange(event){
+                const step = event.detail.step;
+                const links = this.shadowRoot.querySelectorAll('.link_lab');
+                for(const link of links){
+                    if(Number.parseInt(link.getAttribute('lab-step')) <= step){
+                        link.style.color = 'green';
+                    }else{
+                        link.style.color = 'black';
+                    }
+                }
+            }
+
             havePermission(user, role){
-                console.log('hola');
-                console.log(user.role);
-                console.log(role);
                 return user.role ===  role;
             }
         }

@@ -27,7 +27,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <marked-element markdown="[[renderContent(lab, 'content', step)]]">
         <div slot="markdown-html"></div>
       </marked-element>
-      <a href="#" on-click="_handleStep">Siguiente</a>
+      <template is="dom-if" if="[[_renderLink(lab, step)]]">
+          <a href="lab#" on-click="_handleStep">Siguiente</a>
+      </template>
     </div>
   </template>
 
@@ -42,7 +44,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               },
               step: {
                   type: Number,
-                  value: 0
+                  value: 0,
+                  observer: '_changeStep'
               }
           };
       }
@@ -52,13 +55,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       renderContent(lab, section, step){
-          console.log('renderContent');
-          console.log(lab);
-          console.log(step);
           if(lab && lab.content && lab.content.length > step){
               return lab.content[step][section];
           }
           return 'Curso no encontrado';
+      }
+
+      _handleStep(event){
+          const step = this.step + 1;
+          if(lab && step < this.lab.content.length){
+              this.set('step', step);
+          }
+      }
+
+      _changeStep(){
+          const step = this.step;
+          this.dispatchEvent(new CustomEvent('step-change', {
+              bubbles: true,
+              composed: true,
+              detail: {
+                  step
+              }
+          }));
+      }
+
+      _renderLink(lab, step){
+          if(lab && lab.content){
+              return step < (lab.content.length-1);
+          }
+          return false;
       }
     }
 
