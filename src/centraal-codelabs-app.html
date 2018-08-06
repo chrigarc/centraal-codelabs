@@ -20,11 +20,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="my-icons.html">
+
 
 <link rel="lazy-import" href="labs-view.html">
 <link rel="lazy-import" href="lab-view.html">
-<link rel="lazy-import" href="my-view3.html">
+<link rel="lazy-import" href="users-view.html">
 <link rel="lazy-import" href="my-view404.html">
 
 <dom-module id="centraal-codelabs-app">
@@ -66,6 +68,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 color: black;
                 font-weight: bold;
             }
+
         </style>
 
         <app-location
@@ -80,18 +83,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 tail="{{subroute}}">
         </app-route>
 
-        <app-drawer-layout fullbleed narrow="{{narrow}}" on-selected-lab="_handleSelectTab">
+        <app-drawer-layout id="centraal-layout" fullbleed  narrow="{{narrow}}" on-selected-lab="_handleSelectTab">
 
             <template is="dom-if" if="[[isLogin]]">
                 <!-- Drawer content -->
                 <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
 
-                    <app-toolbar>Menu</app-toolbar>
-                    <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-                        <a name="view1" href="[[rootPath]]labs">View One</a>
-                        <a name="view2" href="[[rootPath]]lab">View Two</a>
-                        <a name="view3" href="[[rootPath]]view3">View Three</a>
-                    </iron-selector>
+                    <template is="dom-if" if="[[user.role==='admin']]">
+                        <app-toolbar>Menu</app-toolbar>
+                        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+                            <a name="view1" href="[[rootPath]]labs">Lista de cursos</a>
+                            <a name="view2" href="[[rootPath]]lab">Vista del curso</a>
+                            <a name="view3" href="[[rootPath]]users">View Three</a>
+                        </iron-selector>
+                    </template>
+
+
+                    <template is="dom-repeat"  items="[[lab.content]]" class="drawer-list" >
+                        <a href="lab" on-click="_step" lab-step$="[[item.step]]">[[item.title]]</a>
+                    </template>
                 </app-drawer>
             </template>
             <!-- Main content -->
@@ -100,9 +110,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                 <app-header slot="header" condenses reveals effects="waterfall">
                     <app-toolbar>
-                        <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+                        <template is="dom-if" if="[[isLogin]]">
+                            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+                        </template>
                         <div main-title>Centraal Codelabs App</div>
-                        <a id="link-lab" href="[[rootPath]]lab">lab</a>
+                        <a id="link-lab" href="[[rootPath]]lab" hidden>lab</a>
+                        <br>
+                        <template is="dom-if" if="[[isLogin]]">
+                            <a href="[[rootPath]]labs" on-click="_closeSession">Cerrar sesión</a>
+                        </template>
                     </app-toolbar>
                 </app-header>
 
@@ -112,15 +128,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                             attr-for-selected="name"
                             fallback-selection="view404"
                             role="main">
-                        <labs-view name="labs" is-login="[[isLogin]]"></labs-view>
-                        <lab-view name="lab" uid-lab="[[lab]]" is-login="[[isLogin]]" user-uid="[[userUid]]"></lab-view>
-                        <my-view3 name="view3"></my-view3>
+                        <labs-view id="labs-view" name="labs" is-login="[[isLogin]]"></labs-view>
+                        <lab-view id="lab-view" name="lab" lab="[[lab]]" is-login="[[isLogin]]"></lab-view>
+                        <users-view name="users"></users-view>
                         <my-view404 name="view404"></my-view404>
                     </iron-pages>
                 </div>
 
             </app-header-layout>
         </app-drawer-layout>
+        <paper-toast text="[[messageToast]]" [[showToast]]></paper-toast>
     </template>
 
     <script>
@@ -147,15 +164,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     rootPath: String,
                     isLogin: {
                         type: Boolean,
-                        value: false
+                        value: false,
+                        observer: '_changeLogin'
                     },
                     lab: {
+                        type: Object,
+                        value: {}
+                    },
+                    user: {
+                        type: Object,
+                        value: {}
+                    },
+                    messageToast: {
                         type: String,
                         value: ''
                     },
-                    userUid: {
-                        type: String,
-                        value: ''
+                    showToast: {
+                        type: Boolean,
+                        value: false
+                    },
+                    labContent: {
+                        type: Object,
+                        value: []
                     }
                 };
             }
@@ -191,6 +221,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     case 'lab':
                         myFile = 'lab-view';
                         break;
+                    case 'users':
+                        myFile = 'users-view';
+                        break;
                     default:
                         myFile = 'my-' + page;
                         break;
@@ -213,27 +246,84 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 });
             }
 
+            _changeLogin(){
+                if(this.isLogin) {
+                    this.$['centraal-layout'].removeAttribute('force-narrow');
+                }else{
+                    this.$['centraal-layout'].setAttribute('force-narrow', true)
+                }
+            }
+
             _handleSelectTab(event) {
                 if(event.detail.user){
                     this._updateUserInfo(event.detail.user);
                 }
-                this.set('lab', event.detail.lab);
-                this.$['link-lab'].click();
+                console.log(event.detail.uidLab);
+                const lab = this._findLab(event.detail.uidLab);
+                const lavsRef = firebase.database().ref('labs-content/' + event.detail.uidLab);
+                lavsRef.once('value', (snapshot) =>{
+                    const values = snapshot.val();
+                    if(values){
+                        const newContent = [];
+                        for(const item in values){
+                            newContent.push(Object.assign({}, {uid:item}, values[item]));
+                        }
+                        lab.content = newContent;
+                    }
+                    this.set('lab', lab);
+                    const userLabsRef = firebase.database().ref('user-labs/' + this.user.uid + '/' + lab.uid);
+                    userLabsRef.once('value', snapshot =>{
+                        if(snapshot.val()){
+                            this.set('step', snapshot.val)
+                        }
+                    });
+                    this.$['link-lab'].click();
+                });
             }
 
             _toastEvent(event) {
-
+                this.set('messageToast', event.detail.message);
+                this.set('showToast', true);
             }
 
             _updateUserInfo(user){
+                this.set('user', {uid:user.uid});
                 const userInfo = {
                     displayName: user.displayName,
                     email: user.email,
                     photoURL: user.photoURL,
                     role: 'student'
                 };
-                this.set('userUid', user.uid);
                 firebase.database().ref('users/'+ user.uid).update(userInfo);
+            }
+
+            _step(event){
+                const step =event.target.getAttribute('step');
+                this.$['lab-view'].step = step;
+
+                firebase.database().ref('user-labs/'+ this.user.uid + '/' + this.lab.uid).set(step);
+            }
+
+            _findLab(uidLab){
+                let lab = null;
+                for(const item of this.$['labs-view'].labs){
+                    if(item.uid === uidLab){
+                        lab = item;
+                    }
+                }
+                return lab;
+            }
+
+            _closeSession(){
+                console.log('cerrando sesipon');
+                firebase.auth().signOut().then(() => {
+                    this.set('user', null);
+                    this.set('lab', null);
+                    this.set('isLogin', false);
+                }, error => {
+                    this.set('messageToast', error);
+                    this.set('showToast', true);
+                });
             }
         }
 

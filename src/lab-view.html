@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/marked-element/marked-element.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="lab-view">
@@ -21,14 +22,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
     <div class="card">
-      <h2>[[uidLab]]</h2>
-      <template is="dom-repeat" items="[[content]]">
-
-      </template>
-    </div>
-    <div class="card">
-      <h2>[[lab.title]]</h2>
-
+      <h1>[[lab.title]]</h1>
+      <h2>[[renderContent('title', step)]]</h2>
+      <marked-element markdown="[[renderContent('content', step)]]">
+        <div slot="markdown-html"></div>
+      </marked-element>
+      <a href="#" on-click="_handleStep">Siguiente</a>
     </div>
   </template>
 
@@ -37,18 +36,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get is() { return 'lab-view'; }
       static get properties() {
           return {
-              uidLab: {
-                  type: String,
-                  value: '',
-                  observer: 'getLab'
-              },
-              content: {
+              lab: {
                   type: Object,
-                  value: []
+                  value: {},
               },
-              userUid: {
-                  type: String,
-                  value: ''
+              step: {
+                  type: Number,
+                  value: 0
               }
           };
       }
@@ -57,19 +51,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           super.connectedCallback();
       }
 
-      getLab(){
-          const lavsRef = firebase.database().ref('labs-content/' + this.uidLab);
-          lavsRef.once('value', (snapshot) =>{
-              const values = snapshot.val();
-              if(values){
-                  const newContent = [];
-                  for(const item in values){
-                      newContent.push(Object.assign({}, {uid:item}, values[item]));
-                  }
-                  this.content = newContent;
-                  console.log(this.content);
-              }
-          });
+      renderContent(section, step){
+          console.log(this.lab.content);
+          return this.lab.content[0][section];
+
       }
     }
 

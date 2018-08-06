@@ -1,0 +1,76 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="responsive-table/responsive-table.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="users-view">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    </style>
+
+    <div class="card">
+      <h1>Usuarios registrados</h1>
+      <responsive-table  headers="[[headers]]" rows="[[users]]"></responsive-table>
+    </div>
+  </template>
+
+  <script>
+    class UsersView extends Polymer.Element {
+      static get is() { return 'users-view'; }
+
+      static get properties(){
+          return {
+            users: {
+                type: Object,
+                value: []
+            },
+            headers:{
+                type: Object,
+                value: ['', 'uid', 'Nombre', 'Email', 'Rol']
+            }
+          };
+      }
+
+      connectedCallback() {
+          super.connectedCallback();
+          const usersRef = firebase.database().ref('users/');
+          usersRef.on('value', (snapshot) =>{
+              const values = snapshot.val();
+              if(values){
+                  const newUsers = [];
+                  for(const item in values){
+                      newUsers.push({
+                          title: values[item].displayName,
+                          cells:[
+                              {type: 'image', content: values[item].photoURL},
+                              {type: 'string', content: item},
+                              {type: 'string', content: values[item].displayName},
+                              {type: 'string', content: values[item].email},
+                              {type: 'string', content: values[item].role}
+                          ]
+                      });
+                  }
+                  this.users = newUsers;
+                  // console.log(this.users);
+              }
+          });
+      }
+    }
+
+    window.customElements.define(UsersView.is, UsersView);
+  </script>
+</dom-module>

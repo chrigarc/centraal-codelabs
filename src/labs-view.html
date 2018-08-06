@@ -23,9 +23,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
+
+      .list__labs{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
     </style>
 
-    <div id="area-collapse" class="card">
+    <div id="area-collapse" class="card list__labs">
       <template is="dom-repeat" items="[[labs]]">
         <paper-card image="[[item.image]]" alt="Sailboat Harbor" class="white">
           <div class="card-content">[[item.title]]</div>
@@ -83,12 +89,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           event.target.setAttribute('aria-expanded',node.opened);
       }
 
-      _launchSelectedLab(lab, user){
+      _launchSelectedLab(uidLab, user){
           this.dispatchEvent(new CustomEvent('selected-lab', {
               bubbles: true,
               composed: true,
               detail: {
-                  lab, user
+                  uidLab, user
               }
           }));
       }
