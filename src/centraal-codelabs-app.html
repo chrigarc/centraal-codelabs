@@ -69,6 +69,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 font-weight: bold;
             }
 
+            .green{
+                color: green;
+            }
+
         </style>
 
         <app-location
@@ -83,25 +87,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 tail="{{subroute}}">
         </app-route>
 
-        <app-drawer-layout id="centraal-layout" fullbleed  narrow="{{narrow}}" on-selected-lab="_handleSelectTab">
+        <app-drawer-layout id="centraal-layout" fullbleed  narrow="{{narrow}}" on-selected-lab="_handleSelectTab" on-required-login="_initSession">
 
             <template is="dom-if" if="[[isLogin]]">
                 <!-- Drawer content -->
                 <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
+                    <app-toolbar>
+                        Bienvenido [[user.displayName]]
+                    </app-toolbar>
+                    <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+                        <a name="labs" href="[[rootPath]]labs">Lista de cursos</a>
+                        <template is="dom-if" if="[[havePermission(user, 'admin')]]">
+                            <a name="users" href="[[rootPath]]users">Usuarios</a>
+                        </template>
+                    </iron-selector>
 
-                    <template is="dom-if" if="[[user.role==='admin']]">
-                        <app-toolbar>Menu</app-toolbar>
-                        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-                            <a name="view1" href="[[rootPath]]labs">Lista de cursos</a>
-                            <a name="view2" href="[[rootPath]]lab">Vista del curso</a>
-                            <a name="view3" href="[[rootPath]]users">View Three</a>
-                        </iron-selector>
-                    </template>
+                    <div class="drawer-list">
+                        <template is="dom-repeat"  items="[[lab.content]]" class="drawer-list" >
+                            <template is="dom-if">
 
-
-                    <template is="dom-repeat"  items="[[lab.content]]" class="drawer-list" >
-                        <a href="lab" on-click="_step" lab-step$="[[item.step]]">[[item.title]]</a>
-                    </template>
+                            </template>
+                            <a href="lab" on-click="_step" lab-step$="[[item.step]]"><paper-icon-button icon="my-icons:done"></paper-icon-button>[[item.title]]</a>
+                        </template>
+                    </div>
                 </app-drawer>
             </template>
             <!-- Main content -->
@@ -118,6 +126,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <br>
                         <template is="dom-if" if="[[isLogin]]">
                             <a href="[[rootPath]]labs" on-click="_closeSession">Cerrar sesión</a>
+                        </template>
+                        <template is="dom-if" if="[[!isLogin]]">
+                            <a href="[[rootPath]]labs" on-click="_initSession">Iniciar sesión</a>
                         </template>
                     </app-toolbar>
                 </app-header>
@@ -243,6 +254,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             __oAuthMiddelware() {
                 firebase.auth().onAuthStateChanged(user => {
                     this.set('isLogin', user ? true : false);
+                    if(this.isLogin){
+                        const userRef = firebase.database().ref('users/' + user.uid);
+                        userRef.once('value', (snapshot) =>{
+                            const values = snapshot.val();
+                            let role = 'student';
+                            if(values){
+                                if(values.role){
+                                    role = values.role
+                                }
+                            }
+                            this.set('user', {
+                                uid: user.uid,
+                                displayName: user.displayName,
+                                photoURL: user.photoURL,
+                                email: user.email,
+                                role
+                            });
+                            this._updateUserInfo(this.user);
+                        });
+                    }
                 });
             }
 
@@ -255,9 +286,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
 
             _handleSelectTab(event) {
-                if(event.detail.user){
-                    this._updateUserInfo(event.detail.user);
-                }
                 console.log(event.detail.uidLab);
                 const lab = this._findLab(event.detail.uidLab);
                 const lavsRef = firebase.database().ref('labs-content/' + event.detail.uidLab);
@@ -287,18 +315,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
 
             _updateUserInfo(user){
-                this.set('user', {uid:user.uid});
                 const userInfo = {
                     displayName: user.displayName,
                     email: user.email,
                     photoURL: user.photoURL,
-                    role: 'student'
+                    role: user.role
                 };
                 firebase.database().ref('users/'+ user.uid).update(userInfo);
             }
 
             _step(event){
-                const step =event.target.getAttribute('step');
+                const step = event.target.getAttribute('lab-step');
                 this.$['lab-view'].step = step;
 
                 firebase.database().ref('user-labs/'+ this.user.uid + '/' + this.lab.uid).set(step);
@@ -315,7 +342,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
 
             _closeSession(){
-                console.log('cerrando sesipon');
+                console.log('cerrando sesiónn');
                 firebase.auth().signOut().then(() => {
                     this.set('user', null);
                     this.set('lab', null);
@@ -324,6 +351,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     this.set('messageToast', error);
                     this.set('showToast', true);
                 });
+            }
+
+            _initSession(event){
+                const provider = new firebase.auth.GoogleAuthProvider();
+                firebase.auth().signInWithPopup(provider).then((result)  =>{
+                    this._updateUserInfo(result.user);
+                    if(event.detail && event.detail.page === 'lab'){
+                        this._handleSelectTab(event);
+                    }
+                }).catch((error)  => {
+                    this.set('messageToast', error);
+                    this.set('showToast', true);
+                });
+            }
+
+            havePermission(user, role){
+                console.log('hola');
+                console.log(user.role);
+                console.log(role);
+                return user.role ===  role;
             }
         }
 

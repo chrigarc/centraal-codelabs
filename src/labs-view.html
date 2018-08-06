@@ -38,7 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <div class="card-actions">
             <!--<paper-button>Compartir</paper-button>-->
             <paper-button on-click="_handleLab" lab-uid$="[[item.uid]]">Iniciar</paper-button>
-            <paper-icon-button icon="expand-more" title="more info" on-click="_toggle" style="float:right;">
+            <paper-icon-button icon="my-icons:add" title="more info" on-click="_toggle" style="float:right;">
             </paper-icon-button>
             <iron-collapse id="collapse_[[index]]" style="width:100%;">
               [[item.description]]
@@ -89,36 +89,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           event.target.setAttribute('aria-expanded',node.opened);
       }
 
-      _launchSelectedLab(uidLab, user){
+      _launchSelectedLab(uidLab){
           this.dispatchEvent(new CustomEvent('selected-lab', {
               bubbles: true,
               composed: true,
               detail: {
-                  uidLab, user
+                  uidLab
               }
           }));
       }
 
       _handleLab(event){
-          const lab = event.target.getAttribute('lab-uid');
-          console.log(lab);
+          const uidLab = event.target.getAttribute('lab-uid');
           if(this.isLogin){
-              this._launchSelectedLab(lab);
+              this._launchSelectedLab(uidLab);
           }else{
-              const provider = new firebase.auth.GoogleAuthProvider();
-              firebase.auth().signInWithPopup(provider).then((result)  =>{
-                  this._launchSelectedLab(lab, result.user);
-              }).catch((error)  => {
-                  // Handle Errors here.
-                  this.dispatchEvent(new CustomEvent('toast-event', {
-                      bubbles: true,
-                      composed: true,
-                      detail: {
-                          type: 'alert',
-                          message: 'Para ver el contenido es necesario iniciar sesión con tu cuenta Google'
-                      }
-                  }));
-              });
+              this.dispatchEvent(new CustomEvent('required-login', {
+                  bubbles: true,
+                  composed: true,
+                  detail: {
+                      page: 'lab',
+                      uidLab
+                  }
+              }));
           }
       }
 

@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="89213abe-b495-4b8d-b3c7-dc26446309ba" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower.json" beforeDir="false" afterPath="$PROJECT_DIR$/bower.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/centraal-codelabs-app.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/centraal-codelabs-app.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lab-view.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/lab-view.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/labs-view.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/labs-view.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/my-view3.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/users-view.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/my-icons.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/my-icons.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,38 +20,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="centraal-codelabs-app.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="centraal-codelabs-app.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/centraal-codelabs-app.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="224" column="39" selection-start-line="224" selection-start-column="39" selection-end-line="224" selection-end-column="39" />
+            <state relative-caret-position="185">
+              <caret line="323" column="42" lean-forward="true" selection-start-line="323" selection-start-column="42" selection-end-line="323" selection-end-column="42" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="users-view.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/users-view.html">
+      <file leaf-file-name="lab-view.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lab-view.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="45" column="28" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
+            <state relative-caret-position="-361">
+              <caret line="26" column="68" selection-start-line="26" selection-start-column="64" selection-end-line="26" selection-end-column="68" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="responsive-table.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/responsive-table/responsive-table.html">
+      <file leaf-file-name="my-icons.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/my-icons.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="67" column="27" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
+            <state relative-caret-position="329">
+              <caret line="34" column="56" selection-start-line="34" selection-start-column="56" selection-end-line="34" selection-end-column="56" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.html">
+      <file leaf-file-name="labs-view.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/labs-view.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1815">
-              <caret line="121" column="51" selection-start-line="121" selection-start-column="51" selection-end-line="121" selection-end-column="51" />
+            <state relative-caret-position="204">
+              <caret line="40" column="49" selection-start-line="40" selection-start-column="49" selection-end-line="40" selection-end-column="49" />
+              <folding>
+                <element signature="n#style#0;n#paper-icon-button#0;n#div#1;n#paper-card#0;n#template#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#iron-collapse#0;n#div#1;n#paper-card#0;n#template#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -76,10 +79,16 @@
       <find>paper-icon-bu</find>
       <find>newLabs</find>
       <find>this.r</find>
+      <find>renderConte</find>
+      <find>this.lab</find>
+      <find>paper-icon-</find>
+      <find>firebase</find>
+      <find>_step</find>
     </findStrings>
     <replaceStrings>
       <replace>usersRef</replace>
       <replace>newUsers</replace>
+      <replace>lab</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -91,12 +100,13 @@
         <option value="$PROJECT_DIR$/manifest.json" />
         <option value="$PROJECT_DIR$/src/my-view1.html" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/src/lab-view.html" />
-        <option value="$PROJECT_DIR$/src/labs-view.html" />
         <option value="$PROJECT_DIR$/src/my-view3.html" />
-        <option value="$PROJECT_DIR$/src/centraal-codelabs-app.html" />
-        <option value="$PROJECT_DIR$/src/users-view.html" />
         <option value="$PROJECT_DIR$/src/responsive-table/responsive-table.html" />
+        <option value="$PROJECT_DIR$/src/users-view.html" />
+        <option value="$PROJECT_DIR$/src/labs-view.html" />
+        <option value="$PROJECT_DIR$/src/my-icons.html" />
+        <option value="$PROJECT_DIR$/src/lab-view.html" />
+        <option value="$PROJECT_DIR$/src/centraal-codelabs-app.html" />
       </list>
     </option>
   </component>
@@ -168,6 +178,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -190,7 +201,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -226,12 +236,13 @@
       <workItem from="1533420080009" duration="15908000" />
       <workItem from="1533481184577" duration="9489000" />
       <workItem from="1533562958525" duration="2481000" />
-      <workItem from="1533569644276" duration="1500000" />
+      <workItem from="1533569644276" duration="3219000" />
+      <workItem from="1533576365699" duration="4584000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29378000" />
+    <option name="totallyTimeSpent" value="35681000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1600" height="838" extended-state="6" />
@@ -244,7 +255,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.33044732" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.33189034" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -263,6 +274,24 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/centraal-codelabs-app.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5220">
+          <caret line="348" column="45" selection-start-line="348" selection-start-column="45" selection-end-line="348" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/labs-view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1605">
+          <caret line="107" column="14" selection-start-line="107" selection-start-column="14" selection-end-line="107" selection-end-column="70" />
+          <folding>
+            <element signature="n#style#0;n#paper-icon-button#0;n#div#1;n#paper-card#0;n#template#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#iron-collapse#0;n#div#1;n#paper-card#0;n#template#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/centraal-codelabs-app.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3285">
@@ -393,9 +422,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/shared-styles.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/responsive-table/responsive-table.js" />
     <entry file="file://$PROJECT_DIR$/bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -404,10 +430,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/responsive-table/responsive-table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1065">
+          <caret line="71" column="13" selection-start-line="71" selection-start-column="13" selection-end-line="71" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/users-view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bower_components/iron-iconset-svg/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bower_components/iron-iconset-svg/iron-iconset-svg.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2790" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bower_components/iron-iconset-svg/demo/svg-sample-icons.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-630" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shared-styles.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-315" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/labs-view.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1230">
-          <caret line="82" column="7" selection-start-line="68" selection-start-column="6" selection-end-line="82" selection-end-column="7" />
+        <state relative-caret-position="204">
+          <caret line="40" column="49" selection-start-line="40" selection-start-column="49" selection-end-line="40" selection-end-column="49" />
           <folding>
             <element signature="n#style#0;n#paper-icon-button#0;n#div#1;n#paper-card#0;n#template#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#iron-collapse#0;n#div#1;n#paper-card#0;n#template#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
@@ -415,31 +473,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/my-icons.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="34" column="56" selection-start-line="34" selection-start-column="56" selection-end-line="34" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/lab-view.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" selection-start-line="11" selection-end-line="11" selection-end-column="81" />
+        <state relative-caret-position="-361">
+          <caret line="26" column="68" selection-start-line="26" selection-start-column="64" selection-end-line="26" selection-end-column="68" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/centraal-codelabs-app.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="224" column="39" selection-start-line="224" selection-start-column="39" selection-end-line="224" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/users-view.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="45" column="28" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/responsive-table/responsive-table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="67" column="27" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
+        <state relative-caret-position="185">
+          <caret line="323" column="42" lean-forward="true" selection-start-line="323" selection-start-column="42" selection-end-line="323" selection-end-column="42" />
         </state>
       </provider>
     </entry>

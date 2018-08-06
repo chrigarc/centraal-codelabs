@@ -23,8 +23,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <div class="card">
       <h1>[[lab.title]]</h1>
-      <h2>[[renderContent('title', step)]]</h2>
-      <marked-element markdown="[[renderContent('content', step)]]">
+      <h2>[[renderContent(lab, 'title', step)]]</h2>
+      <marked-element markdown="[[renderContent(lab, 'content', step)]]">
         <div slot="markdown-html"></div>
       </marked-element>
       <a href="#" on-click="_handleStep">Siguiente</a>
@@ -51,10 +51,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           super.connectedCallback();
       }
 
-      renderContent(section, step){
-          console.log(this.lab.content);
-          return this.lab.content[0][section];
-
+      renderContent(lab, section, step){
+          console.log('renderContent');
+          console.log(lab);
+          console.log(step);
+          if(lab && lab.content && lab.content.length > step){
+              return lab.content[step][section];
+          }
+          return 'Curso no encontrado';
       }
     }
 
