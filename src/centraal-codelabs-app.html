@@ -21,6 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="my-icons.html">
 
 
@@ -33,8 +34,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <template>
         <style>
             :host {
-                --app-primary-color: #4285f4;
-                --app-secondary-color: black;
+                --app-primary-color: black;
+                --app-secondary-color: gray;
 
                 display: block;
             }
@@ -69,6 +70,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 font-weight: bold;
             }
 
+            .banner{
+                /*background-image: url('../images/banner.jpg');*/
+                height: 10%;
+            }
+
+            a.white, a.white:hover, a.white:visited{
+                color: white;
+                text-decoration: none;
+            }
+
+            paper-input.white{
+                margin: 0 10% 10%;
+            }
 
         </style>
 
@@ -119,13 +133,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <a id="link-lab" href="[[rootPath]]lab" hidden>lab</a>
                         <br>
                         <template is="dom-if" if="[[isLogin]]">
-                            <a href="[[rootPath]]labs" on-click="_closeSession">Cerrar sesión</a>
+                            <a class="white" href="[[rootPath]]labs" on-click="_closeSession">Cerrar sesión</a>
                         </template>
                         <template is="dom-if" if="[[!isLogin]]">
-                            <a href="[[rootPath]]labs" on-click="_initSession">Iniciar sesión</a>
+                            <a class="white" on-click="_initSession">Iniciar sesión</a>
                         </template>
                     </app-toolbar>
                 </app-header>
+                <div class="banner">
+                    <paper-input id="input_lab" class="white" always-float-label label="Nombre del curso" on-keyup="_filter"></paper-input>
+                </div>
 
                 <div on-toast-event="_toastEvent">
                     <iron-pages
@@ -133,7 +150,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                             attr-for-selected="name"
                             fallback-selection="view404"
                             role="main">
-                        <labs-view id="labs-view" name="labs" is-login="[[isLogin]]"></labs-view>
+                        <labs-view id="labs-view" name="labs" is-login="[[isLogin]]" filter="[[filter]]"></labs-view>
                         <lab-view id="lab-view" name="lab" lab="[[lab]]" is-login="[[isLogin]]"></lab-view>
                         <users-view name="users"></users-view>
                         <my-view404 name="view404"></my-view404>
@@ -191,6 +208,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     labContent: {
                         type: Object,
                         value: []
+                    },
+                    filter:{
+                        type: String,
+                        value: ''
                     }
                 };
             }
@@ -371,7 +392,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
 
             havePermission(user, role){
-                return user.role ===  role;
+                if(user && user.role){
+                    return user.role ===  role;
+                }
+                return false;
+            }
+
+            _filter(event){
+                this.set('filter', this.$['input_lab'].value);
             }
         }
 

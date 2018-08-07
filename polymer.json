@@ -1,10 +1,10 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/my-app.html",
+  "shell": "src/centraal-codelabs-app.html",
   "fragments": [
-    "src/my-view1.html",
-    "src/my-view2.html",
-    "src/my-view3.html",
+    "src/labs-view.html",
+    "src/lab-view.html",
+    "src/users-view.html",
     "src/my-view404.html"
   ],
   "sources": [
@@ -22,12 +22,6 @@
   "builds": [
     {
       "preset": "es5-bundled"
-    },
-    {
-      "preset": "es6-bundled"
-    },
-    {
-      "preset": "es6-unbundled"
     }
   ]
 }

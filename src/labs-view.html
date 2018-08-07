@@ -29,22 +29,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         flex-wrap: wrap;
         justify-content: space-around;
       }
+
+      paper-card.white{
+        --paper-card-header-color: white;
+      }
+      .list__labs > paper-card{
+        /*flex: 2 30%;*/
+      }
+
     </style>
 
     <div id="area-collapse" class="card list__labs">
       <template is="dom-repeat" items="[[labs]]">
-        <paper-card image="[[item.image]]" alt="Sailboat Harbor" class="white">
-          <div class="card-content">[[item.title]]</div>
-          <div class="card-actions">
-            <!--<paper-button>Compartir</paper-button>-->
-            <paper-button on-click="_handleLab" lab-uid$="[[item.uid]]">Iniciar</paper-button>
-            <paper-icon-button icon="my-icons:add" title="more info" on-click="_toggle" style="float:right;">
-            </paper-icon-button>
-            <iron-collapse id="collapse_[[index]]" style="width:100%;">
-              [[item.description]]
-            </iron-collapse>
-          </div>
-        </paper-card>
+        <template is="dom-if" if="[[_renderCard(item, filter)]]">
+          <paper-card heading="[[item.category]]" image="[[item.image]]" alt="Sailboat Harbor" class="white">
+            <div class="card-content">[[item.title]]</div>
+            <div class="card-actions">
+              <!--<paper-button>Compartir</paper-button>-->
+              <paper-button on-click="_handleLab" lab-uid$="[[item.uid]]">Iniciar</paper-button>
+              <paper-icon-button icon="my-icons:add" title="more info" on-click="_toggle" style="float:right;">
+              </paper-icon-button>
+              <iron-collapse id="collapse_[[index]]" style="width:100%;">
+                [[item.description]]
+              </iron-collapse>
+            </div>
+          </paper-card>
+        </template>
       </template>
 
     </div>
@@ -62,6 +72,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               },
               isLogin: {
                 type: Boolean
+              },
+              filter:{
+                  type: String,
+                  value: '',
+                  reflectToAttribute: true
               }
           };
       }
@@ -112,6 +127,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   }
               }));
           }
+      }
+
+      _renderCard(lab, filter){
+          if(!filter || filter === ''){
+              return true;
+          }
+
+          return lab.title.toString().startsWith(filter);
       }
 
     }
