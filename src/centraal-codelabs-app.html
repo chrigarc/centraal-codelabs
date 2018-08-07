@@ -70,19 +70,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 font-weight: bold;
             }
 
-            .banner{
-                /*background-image: url('../images/banner.jpg');*/
-                height: 10%;
-            }
-
             a.white, a.white:hover, a.white:visited{
                 color: white;
                 text-decoration: none;
             }
 
-            paper-input.white{
-                margin: 0 10% 10%;
-            }
+
 
         </style>
 
@@ -140,9 +133,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         </template>
                     </app-toolbar>
                 </app-header>
-                <div class="banner">
-                    <paper-input id="input_lab" class="white" always-float-label label="Nombre del curso" on-keyup="_filter"></paper-input>
-                </div>
 
                 <div on-toast-event="_toastEvent">
                     <iron-pages
@@ -208,10 +198,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     labContent: {
                         type: Object,
                         value: []
-                    },
-                    filter:{
-                        type: String,
-                        value: ''
                     }
                 };
             }
@@ -398,9 +384,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 return false;
             }
 
-            _filter(event){
-                this.set('filter', this.$['input_lab'].value);
-            }
+
         }
 
         window.customElements.define(CentraalCodelabsApp.is, CentraalCodelabsApp);

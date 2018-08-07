@@ -37,8 +37,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         /*flex: 2 30%;*/
       }
 
-    </style>
+      paper-input.white{
+        margin: 0 10% 10%;
+      }
 
+    </style>
+    <div class="banner">
+      <paper-input id="input_lab" class="white" always-float-label label="Nombre del curso" on-keyup="_filter"></paper-input>
+    </div>
     <div id="area-collapse" class="card list__labs">
       <template is="dom-repeat" items="[[labs]]">
         <template is="dom-if" if="[[_renderCard(item, filter)]]">
@@ -75,8 +81,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               },
               filter:{
                   type: String,
-                  value: '',
-                  reflectToAttribute: true
+                  value: ''
               }
           };
       }
@@ -136,7 +141,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           return lab.title.toString().startsWith(filter);
       }
-
+      _filter(event){
+          this.set('filter', this.$['input_lab'].value);
+      }
     }
 
     window.customElements.define(LabsView.is, LabsView);

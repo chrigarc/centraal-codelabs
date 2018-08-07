@@ -62,8 +62,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       _handleStep(event){
+          console.log('step: ' + this.step);
           const step = this.step + 1;
-          if(lab && step < this.lab.content.length){
+          if(this.lab && step < this.lab.content.length){
               this.set('step', step);
           }
       }
