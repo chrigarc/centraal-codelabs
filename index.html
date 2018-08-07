@@ -15,8 +15,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="generator" content="Polymer Starter Kit">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>Centraal Codelabs App</title>
-    <meta name="description" content="Centraal Codelabs App description">
+    <title>My App</title>
+    <meta name="description" content="My App description">
 
     <!--
       The `<base>` tag below is present to support two advanced deployment options:
@@ -40,12 +40,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Centraal Codelabs App">
+    <meta name="application-name" content="My App">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Centraal Codelabs App">
+    <meta name="apple-mobile-web-app-title" content="My App">
 
     <!-- Homescreen icons -->
     <link rel="apple-touch-icon" href="images/manifest/icon-48x48.png">
@@ -88,7 +88,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 
     <!-- Load your application shell -->
-    <link rel="import" href="src/centraal-codelabs-app.html">
+    <link rel="import" href="src/my-app.html">
 
     <!-- Add any global styles for body, document, etc. -->
     <style>
@@ -102,14 +102,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
   </head>
   <body>
+    <my-app></my-app>
     <noscript>
       Please enable JavaScript to view this website.
     </noscript>
     <!-- Built with love using Polymer Starter Kit -->
-    <!--<script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>-->
-    <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
     <script defer>
         // Initialize Firebase
         var config = {
@@ -122,6 +120,5 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
         firebase.initializeApp(config);
     </script>
-    <centraal-codelabs-app></centraal-codelabs-app>
   </body>
 </html>
