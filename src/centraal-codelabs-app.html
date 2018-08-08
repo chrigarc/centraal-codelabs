@@ -149,7 +149,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             </app-header-layout>
         </app-drawer-layout>
-        <paper-toast text="[[messageToast]]" [[showToast]]></paper-toast>
+        <paper-toast id="toast" text="[[messageToast]]"></paper-toast>
     </template>
 
     <script>
@@ -190,10 +190,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     messageToast: {
                         type: String,
                         value: ''
-                    },
-                    showToast: {
-                        type: Boolean,
-                        value: false
                     },
                     labContent: {
                         type: Object,
@@ -300,29 +296,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         lab.content = newContent;
                     }
                     this.set('lab', lab);
-                    const userLabsRef = firebase.database().ref('user-labs/' + this.user.uid + '/' + lab.uid);
-                    userLabsRef.once('value', snapshot =>{
-                        if(snapshot.val()){
-                            this.set('step', snapshot.val)
-                        }
-                    });
-                    this.$['link-lab'].click();
+                    if(lab && this.user){
+                        const userLabsRef = firebase.database().ref('user-labs/' + this.user.uid + '/' + lab.uid);
+                        userLabsRef.once('value', snapshot =>{
+                            if(snapshot.val()){
+                                this.set('step', snapshot.val)
+                            }
+                        });
+                        this.$['link-lab'].click();
+                        this.set('messageToast', `Cargando ${lab.title}`);
+                        this.$.toast.open();
+                    }
                 });
             }
 
             _toastEvent(event) {
                 this.set('messageToast', event.detail.message);
-                this.set('showToast', true);
+                this.$.toast.open();
             }
 
             _updateUserInfo(user){
                 const userInfo = {
-                    displayName: user.displayName,
-                    email: user.email,
+                    uid: user.uid,
                     photoURL: user.photoURL,
-                    role: user.role
-                };
+                    email:user.email,
+                    displayName: user.displayName
+                }
+                if(user.role){
+                    role: userInfo.role
+                }
                 firebase.database().ref('users/'+ user.uid).update(userInfo);
+
             }
 
             _step(event){
@@ -346,22 +350,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     this.set('user', null);
                     this.set('lab', null);
                     this.set('isLogin', false);
+                    this.set('messageToast', `Hasta pronto`);
+                    this.$.toast.open();
                 }, error => {
                     this.set('messageToast', error);
-                    this.set('showToast', true);
+                    this.$.toast.open();
                 });
             }
 
             _initSession(event){
                 const provider = new firebase.auth.GoogleAuthProvider();
                 firebase.auth().signInWithPopup(provider).then((result)  =>{
-                    this._updateUserInfo(result.user);
+                    this.set('messageToast', `Bienvenido ${result.user.displayName}`);
+                    this.$.toast.open();
                     if(event.detail && event.detail.page === 'lab'){
                         this._handleSelectTab(event);
                     }
+                    this._updateUserInfo(result.user);
                 }).catch((error)  => {
                     this.set('messageToast', error);
-                    this.set('showToast', true);
+                    this.$.toast.open();
                 });
             }
 

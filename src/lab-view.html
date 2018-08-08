@@ -62,7 +62,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       _handleStep(event){
-          console.log('step: ' + this.step);
           const step = this.step + 1;
           if(this.lab && step < this.lab.content.length){
               this.set('step', step);
@@ -73,7 +72,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           const step = this.step;
           this.dispatchEvent(new CustomEvent('step-change', {
               bubbles: true,
-              composed: true,
               detail: {
                   step
               }
