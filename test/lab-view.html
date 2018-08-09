@@ -1,0 +1,113 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>Test lab-view</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+
+    <!-- Import the element to test -->
+    <link rel="import" href="../src/lab-view.html">
+</head>
+<body>
+<script>
+    const firebase = null;
+</script>
+
+<test-fixture id="BasicView">
+    <template>
+        <lab-view></lab-view>
+    </template>
+</test-fixture>
+
+
+<script>
+    test('Test content with one content element', () => {
+        const myView = fixture('BasicView');
+        const lab = {
+            title : 'My title',
+            content: [
+                {
+                    title: 'My Subtitle',
+                    content: 'Dummy content'
+                }
+                ],
+            step: 0
+        };
+        const step = 0;
+        myView.lab =  lab;
+        myView.step = step;
+        const h1Element = myView.shadowRoot.querySelector('h1');
+        assert.equal(lab.title, h1Element.innerText);
+        const h2Element = myView.shadowRoot.querySelector('h2');
+        assert.equal(lab.content[0].title, h2Element.innerText);
+        const aElement = myView.shadowRoot.querySelector('a');
+        assert.isNull(aElement);
+    });
+
+    test('Test content with two content element Step = 0', () => {
+        const myView = fixture('BasicView');
+        const lab = {
+            title : 'My title',
+            content: [
+                {
+                    title: 'My Subtitle',
+                    content: 'Dummy content'
+                }
+            ],
+            step: 0
+        };
+        const step = 0;
+        myView.lab =  lab;
+        myView.step = step;
+        const h1Element = myView.shadowRoot.querySelector('h1');
+        assert.equal(lab.title, h1Element.innerText);
+        const h2Element = myView.shadowRoot.querySelector('h2');
+        assert.equal(lab.content[0].title, h2Element.innerText);
+        const aElement = myView.shadowRoot.querySelector('a');
+        assert.isNull(aElement);
+    });
+
+    test('Test content with two content element Step = 1', () => {
+        const myView = fixture('BasicView');
+        const lab = {
+            title : 'My title',
+            content: [
+                {
+                    title: 'My Subtitle 1',
+                    content: 'Dummy content 1'
+                },
+                {
+                    title: 'My Subtitle 2',
+                    content: 'Dummy content 2'
+                }
+            ],
+            step: 0
+        };
+        const step = 1;
+        myView.lab =  lab;
+        myView.step = step;
+        const h1Element = myView.shadowRoot.querySelector('h1');
+        assert.equal(lab.title, h1Element.innerText);
+        const h2Element = myView.shadowRoot.querySelector('h2');
+        assert.notEqual(lab.content[0].title, h2Element.innerText);
+        const aElement = myView.shadowRoot.querySelector('a');
+        assert.isNull(aElement);
+    });
+
+</script>
+</body>
+</html>

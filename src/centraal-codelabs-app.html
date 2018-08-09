@@ -75,7 +75,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 text-decoration: none;
             }
 
+            .user_photo{
+                text-align: center;
+            }
 
+            .user_photo > img {
+                width: 90%;
+            }
 
         </style>
 
@@ -99,6 +105,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <app-toolbar>
                         Bienvenido [[user.displayName]]
                     </app-toolbar>
+
+                    <div class="user_photo"><img src="[[user.photoURL]]" alt=""></div>
+
                     <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
                         <a name="labs" href="[[rootPath]]labs">Lista de cursos</a>
                         <template is="dom-if" if="[[havePermission(user, 'admin')]]">

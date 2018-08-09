@@ -30,6 +30,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         justify-content: space-around;
       }
 
+      paper-card{
+        margin-top: 24px;
+        margin-bottom: 24px;
+      }
+
       paper-card.white{
         --paper-card-header-color: white;
       }
@@ -46,7 +51,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <paper-input id="input_lab" class="white" always-float-label label="Nombre del curso" on-keyup="_filter"></paper-input>
     </div>
     <div id="area-collapse" class="card list__labs">
-      <template is="dom-repeat" items="[[labs]]">
+      <template id="repeat" is="dom-repeat" items="[[labs]]">
         <template is="dom-if" if="[[_renderCard(item, filter)]]">
           <paper-card heading="[[item.category]]" image="[[item.image]]" alt="Sailboat Harbor" class="white">
             <div class="card-content">[[item.title]]</div>
@@ -88,17 +93,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       connectedCallback() {
         super.connectedCallback();
-        const lavsRef = firebase.database().ref('labs/');
-        lavsRef.on('value', (snapshot) =>{
-          const values = snapshot.val();
-          if(values){
-              const newLabs = [];
-              for(const item in values){
-                  newLabs.push(Object.assign({}, {uid:item}, values[item]));
-              }
-              this.labs = newLabs;
-          }
-        });
+        if(firebase) {
+            const lavsRef = firebase.database().ref('labs/');
+            lavsRef.on('value', (snapshot) => {
+                const values = snapshot.val();
+                if (values) {
+                    const newLabs = [];
+                    for (const item in values) {
+                        newLabs.push(Object.assign({}, {uid: item}, values[item]));
+                    }
+                    this.labs = newLabs;
+                }
+            });
+        }
       }
 
       _toggle(event){

@@ -40,33 +40,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             },
             headers:{
                 type: Object,
-                value: ['', 'uid', 'Nombre', 'Email', 'Rol']
+                value: ['', 'Nombre', 'Email', 'Rol']
             }
           };
       }
 
       connectedCallback() {
           super.connectedCallback();
-          const usersRef = firebase.database().ref('users/');
-          usersRef.on('value', (snapshot) =>{
-              const values = snapshot.val();
-              if(values){
-                  const newUsers = [];
-                  for(const item in values){
-                      newUsers.push({
-                          title: values[item].displayName,
-                          cells:[
-                              {type: 'image', content: values[item].photoURL},
-                              {type: 'string', content: item},
-                              {type: 'string', content: values[item].displayName},
-                              {type: 'string', content: values[item].email},
-                              {type: 'string', content: values[item].role}
-                          ]
-                      });
+          if(firebase){
+              const usersRef = firebase.database().ref('users/');
+              usersRef.on('value', (snapshot) =>{
+                  const values = snapshot.val();
+                  if(values){
+                      const newUsers = [];
+                      for(const item in values){
+                          newUsers.push({
+                              title: values[item].displayName,
+                              uid: item,
+                              cells:[
+                                  {type: 'image', content: values[item].photoURL},
+                                  {type: 'string', content: values[item].displayName},
+                                  {type: 'string', content: values[item].email},
+                                  {type: 'string', content: values[item].role}
+                              ]
+                          });
+                      }
+                      this.users = newUsers;
                   }
-                  this.users = newUsers;
-              }
-          });
+              });
+          }
       }
     }
 
