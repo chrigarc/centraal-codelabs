@@ -5,10 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/centraal-codelabs-app.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/centraal-codelabs-app.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/labs-view.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/labs-view.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/responsive-table/responsive-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/responsive-table/responsive-table.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/users-view.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/users-view.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/my-view1.html" beforeDir="false" afterPath="$PROJECT_DIR$/test/labs-view.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,26 +21,17 @@
       <file leaf-file-name="centraal-codelabs-app.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/centraal-codelabs-app.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="82" column="26" selection-start-line="82" selection-start-column="26" selection-end-line="82" selection-end-column="26" />
+            <state relative-caret-position="176">
+              <caret line="301" column="50" lean-forward="true" selection-start-line="301" selection-start-column="50" selection-end-line="301" selection-end-column="50" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="responsive-table.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/responsive-table/responsive-table.html">
+      <file leaf-file-name="labs-view.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/labs-view.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="145" column="66" selection-start-line="145" selection-start-column="66" selection-end-line="145" selection-end-column="66" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="users-view.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/users-view.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="870">
-              <caret line="58" column="40" selection-start-line="58" selection-start-column="40" selection-end-line="58" selection-end-column="40" />
+            <state relative-caret-position="225">
+              <caret line="51" column="29" selection-start-line="51" selection-start-column="29" selection-end-line="51" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -73,7 +60,6 @@
       <find>this.lab</find>
       <find>paper-icon-</find>
       <find>_step</find>
-      <find>firebase</find>
       <find>haveP</find>
       <find>isLogin</find>
       <find>my</find>
@@ -88,6 +74,7 @@
       <find>_handleLab</find>
       <find>consol</find>
       <find>console</find>
+      <find>firebase</find>
     </findStrings>
     <replaceStrings>
       <replace>usersRef</replace>
@@ -114,10 +101,10 @@
         <option value="$PROJECT_DIR$/test/index.html" />
         <option value="$PROJECT_DIR$/test/labs-view.html" />
         <option value="$PROJECT_DIR$/test/lab-view.html" />
-        <option value="$PROJECT_DIR$/src/labs-view.html" />
-        <option value="$PROJECT_DIR$/src/centraal-codelabs-app.html" />
         <option value="$PROJECT_DIR$/src/users-view.html" />
         <option value="$PROJECT_DIR$/src/responsive-table/responsive-table.html" />
+        <option value="$PROJECT_DIR$/src/centraal-codelabs-app.html" />
+        <option value="$PROJECT_DIR$/src/labs-view.html" />
       </list>
     </option>
   </component>
@@ -266,12 +253,13 @@
       <workItem from="1533597485704" duration="4556000" />
       <workItem from="1533762904554" duration="4462000" />
       <workItem from="1533770491916" duration="895000" />
-      <workItem from="1533827256554" duration="7894000" />
+      <workItem from="1533827256554" duration="8139000" />
+      <workItem from="1533843054615" duration="1832000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63985000" />
+    <option name="totallyTimeSpent" value="66062000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1600" height="838" extended-state="6" />
@@ -315,7 +303,6 @@
     <entry file="file://$PROJECT_DIR$/src/users-view.html" />
     <entry file="file://$PROJECT_DIR$/src/labs-view.html" />
     <entry file="file://$PROJECT_DIR$/index.html" />
-    <entry file="file://$PROJECT_DIR$/bower_components/paper-card/paper-card.html" />
     <entry file="file://$PROJECT_DIR$/src/responsive-table/responsive-table.js" />
     <entry file="file://$PROJECT_DIR$/bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -361,13 +348,7 @@
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="26" column="18" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/test/index.html" />
     <entry file="file://$PROJECT_DIR$/polymer.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -393,23 +374,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/labs-view.html">
+    <entry file="file://$PROJECT_DIR$/src/responsive-table/responsive-table.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/centraal-codelabs-app.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="82" column="26" selection-start-line="82" selection-start-column="26" selection-end-line="82" selection-end-column="26" />
+        <state relative-caret-position="888">
+          <caret line="145" column="68" selection-start-line="145" selection-start-column="68" selection-end-line="145" selection-end-column="68" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/lab-view.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
+        <state relative-caret-position="390">
           <caret line="26" column="7" lean-forward="true" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="21" />
         </state>
       </provider>
@@ -421,10 +395,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/responsive-table/responsive-table.html">
+    <entry file="file://$PROJECT_DIR$/bower_components/paper-card/paper-card.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="145" column="66" selection-start-line="145" selection-start-column="66" selection-end-line="145" selection-end-column="66" />
+        <state>
+          <caret line="74" lean-forward="true" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/centraal-codelabs-app.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="301" column="50" lean-forward="true" selection-start-line="301" selection-start-column="50" selection-end-line="301" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/labs-view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="51" column="29" selection-start-line="51" selection-start-column="29" selection-end-line="51" selection-end-column="29" />
         </state>
       </provider>
     </entry>

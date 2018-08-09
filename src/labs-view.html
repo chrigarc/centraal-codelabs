@@ -46,6 +46,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 0 10% 0 10%;
       }
 
+      paper-card{
+        --paper-card-header: {
+          height: 50%;
+          background: #222222;
+        };
+        width: 100%;
+      }
+
+      @media screen and (min-width: 930px) {
+        paper-card{
+          width: 30%;
+        }
+      }
+
+
     </style>
     <div class="banner">
       <paper-input id="input_lab" class="white" always-float-label label="Nombre del curso" on-keyup="_filter"></paper-input>
@@ -102,6 +117,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     for (const item in values) {
                         newLabs.push(Object.assign({}, {uid: item}, values[item]));
                     }
+                    newLabs.sort((a, b)=>{
+                        return a.title.localeCompare(b.title);
+                    });
                     this.labs = newLabs;
                 }
             });

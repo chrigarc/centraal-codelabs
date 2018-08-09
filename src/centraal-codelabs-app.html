@@ -302,6 +302,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         for(const item in values){
                             newContent.push(Object.assign({}, {uid:item}, values[item]));
                         }
+                        newContent.sort((a, b)=>{
+                            return a.step - b.step;
+                        });
                         lab.content = newContent;
                     }
                     this.set('lab', lab);
